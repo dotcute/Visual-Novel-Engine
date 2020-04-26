@@ -19,15 +19,23 @@ const confirm = (title, id, placeholder, func) => {
   });
 }
 
-const alertErr = (title) => {
+const alertErr = (title, html = '') => {
   Swal.fire({
     title: title,
-    html:
-      ``,
+    html: html,
     focusConfirm: true,
     confirmButtonText: '확인'
   }).then(() => {
     window.location.reload()
+  })
+}
+
+const alert = (title, html = '') => {
+  Swal.fire({
+    title: title,
+    html: html,
+    focusConfirm: true,
+    confirmButtonText: '확인'
   })
 }
 
