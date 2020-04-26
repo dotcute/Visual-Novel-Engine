@@ -19,13 +19,15 @@ const confirm = (title, id, placeholder, func) => {
   });
 }
 
-const alert = (title) => {
+const alert = (title, func = () => { return }) => {
   Swal.fire({
     title: title,
     html:
       ``,
     focusConfirm: true,
     confirmButtonText: '확인'
+  }).then(() => {
+    func()
   })
 }
 
@@ -165,7 +167,7 @@ const show = (text, img, smooth = true) => {
     } else {
       ctx.fillStyle = '#658EFF'
       ctx.roundRect(140, 410, canvas.width - 280, 90, 10).fill();
-       
+
       showTalker(talker);
 
       ctx.fillStyle = 'white'
