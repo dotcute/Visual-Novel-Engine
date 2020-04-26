@@ -180,10 +180,6 @@ const showTalker = (name) => {
 
 // ====================================================================================================
 
-window.addEventListener('load', () => {
-  show('클릭하여 시작...', 'title', false);
-});
-
 image.addEventListener('load', () => {
   ctx.drawImage(image, 0, 0, 960, 540);
 }, false);
