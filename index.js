@@ -19,11 +19,11 @@ const confirm = (title, id, placeholder, func) => {
   });
 }
 
-const alert = (title, id, placeholder, func) => {
+const alert = (title) => {
   Swal.fire({
     title: title,
     html:
-      `<p>${content}</p>`,
+      ``,
     focusConfirm: true,
     confirmButtonText: '확인'
   })
