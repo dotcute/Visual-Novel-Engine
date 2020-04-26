@@ -19,6 +19,16 @@ const confirm = (title, id, placeholder, func) => {
   });
 }
 
+const alert = (title, id, placeholder, func) => {
+  Swal.fire({
+    title: title,
+    html:
+      `<p>${content}</p>`,
+    focusConfirm: true,
+    confirmButtonText: '확인'
+  })
+}
+
 const preloading = (dir, arr) => {
   assetsDir = dir;
   arr.forEach(e => {
