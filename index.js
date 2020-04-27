@@ -155,6 +155,8 @@ const waitUntilClick = () => {
 
 const waitUntilChoose = (options) => {
   return new Promise(async (resolve, reject) => {
+    console.log('called');
+
     let opRects = [];
 
     for (let i = 0; i < options.length; i++) {
@@ -181,7 +183,7 @@ const waitUntilChoose = (options) => {
         resolve(i);
       }
     }
-    
+
     resolve(await waitUntilChoose(options));
   })
 }
