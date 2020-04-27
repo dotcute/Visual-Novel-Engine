@@ -136,6 +136,7 @@ const playQues = (content, options) => {
     const index = await waitUntilChoose(options.answers);
 
     if (options.scripts) eval(options.scripts[index]);
+    if (options.replies) await playConv([options.replies[index]]);
     if (options.scenes) await playScene(options.scenes[index]);
     resolve();
   });
