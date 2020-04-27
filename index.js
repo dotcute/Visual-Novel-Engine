@@ -133,10 +133,15 @@ const playQues = (content, options) => {
   return new Promise(async (resolve, reject) => {
     await show(eval(`\`${content}\``), undefined);
 
+    await waitMillisecs(1000);
     const index = await waitUntilChoose(options.answers);
 
     if (options.scripts) eval(options.scripts[index]);
-    if (options.replies) await playConv([options.replies[index]]);
+    if (options.replies) {
+      image.src = image.src;
+      await show(options.replies[index]);
+      await waitUntilClick();
+    }
     if (options.scenes) await playScene(options.scenes[index]);
     resolve();
   });
