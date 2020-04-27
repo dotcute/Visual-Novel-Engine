@@ -162,7 +162,9 @@ const waitUntilChoose = (options) => {
 
     for(let i = 0; i < options.length; i++) {
       const pos = (280 * (i * 2 + 1) / options.length / 2) + 60;
-      ctx.roundRect(180, pos - 25, 600, 50, 10);
+
+      ctx.fillStyle = '#658EFF'
+      ctx.roundRect(180, pos - 25, 600, 50, 10).fill();
     }
 
     await waitUntilClick();
