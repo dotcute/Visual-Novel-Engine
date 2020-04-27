@@ -65,8 +65,8 @@ CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
 HTMLElement.prototype.getMousePos = function (event) {
   var rect = this.getBoundingClientRect();
   return {
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top
+      x: (event.clientX - rect.left).toFixed(),
+      y: (event.clientY - rect.top).toFixed()
   };
 }
 
