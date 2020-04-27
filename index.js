@@ -219,7 +219,7 @@ image.addEventListener('load', () => {
   ctx.drawImage(image, 0, 0, 960, 540);
 }, false);
 
-canvas.addEventListener('click', (event) => {
+canvas.addEventListener('click', async event => {
   mousePos = await canvas.getMousePos(event);
   isClick = true;
 });
