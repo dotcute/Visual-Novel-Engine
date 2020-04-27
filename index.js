@@ -3,7 +3,8 @@ const canvas = document.getElementById('game'),
   image = new Image(),
   httpRequest = new XMLHttpRequest();
 
-let assetsDir = '',
+let script,
+  assetsDir = '',
   mousePos = { x: 0, y: 0 };
 
 // ====================================================================================================
@@ -83,10 +84,11 @@ let isClick = false;
 
 const playScript = (json) => {
   if (!json) alert('존재하지 않는 스크립트입니다.');
-  playScene(json, 'main');
+  script = json;
+  playScene('main');
 };
 
-const playScene = (script, name) => {
+const playScene = (name) => {
   return new Promise(async (resolve, reject) => {
     const scene = script[name];
 
@@ -100,10 +102,10 @@ const playScene = (script, name) => {
           await playConv(behavior.contents);
           break;
         case 'ques':
-          await playQues(behavior.content, behavior.answers);
+          await playQues(behavior.content, behavior.options);
           break;
         case 'scene':
-          await playScene(script, behavior.name);
+          await playScene(behavior.name);
           break;
         case 'js':
           eval(behavior.code);
@@ -127,10 +129,14 @@ const playConv = (contents) => {
   });
 };
 
-const playQues = (content, answers) => {
+const playQues = (content, options) => {
   return new Promise(async (resolve, reject) => {
     await show(eval(`\`${content}\``), undefined);
-    console.log(await waitUntilChoose(answers.options));
+
+    const index = await waitUntilChoose(options.answers);
+
+    if (options.scripts) eval(options.scripts[index]);
+    if (options.scenes) await playScene(options.scenes[index]);
     resolve();
   });
 };
