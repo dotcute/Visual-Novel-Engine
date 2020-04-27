@@ -155,16 +155,14 @@ const waitUntilClick = () => {
 
 const waitUntilChoose = (options) => {
   return new Promise(async (resolve, reject) => {
-    // 옵션 표시 범위: y60 - y340
-    // 옵션 세로 길이: 50px
-    // 마진 = (목록 y - 항목 개수 * 항목y)/(항목 개수+1);
-    // const margin = (280 - options.length * 50) / (options.length + 1);
-
     for(let i = 0; i < options.length; i++) {
       const pos = (280 * (i * 2 + 1) / options.length / 2) + 60;
 
       ctx.fillStyle = '#658EFF'
-      ctx.roundRect(180, pos - 25, 600, 50, 10).fill();
+      ctx.roundRect(180, pos - 20, 600, 40, 10).fill();
+      
+      ctx.fillStyle = 'white'
+      ctx.fillText(options[i], (canvas.width / 2) - (ctx.measureText(options[i]).width / 2), pos + 3);
     }
 
     await waitUntilClick();
