@@ -108,7 +108,7 @@ const playScene = (name) => {
           await playScene(behavior.name);
           break;
         case 'js':
-          eval(behavior.code);
+          eval(behavior.scripts);
           break;
         default:
           alert('정의되지 않은 type 값입니다.');
