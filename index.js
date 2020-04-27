@@ -62,6 +62,18 @@ CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
   return this;
 }
 
+HTMLElement.prototype.getMousePos = function (event) {
+  var rect = this.getBoundingClientRect();
+  return {
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top
+  };
+}
+
+const isInside = (pos, rect) => {
+  return pos.x > rect.x && pos.x < rect.x + rect.width && pos.y < rect.y + rect.height && pos.y > rect.y
+}
+
 // ====================================================================================================
 
 let isClick = false;
@@ -130,8 +142,8 @@ const waitUntilClick = () => {
   return new Promise(async (resolve, reject) => {
     let loop = setInterval(() => {
       if (isClick) {
-        isClick = false;
         resolve();
+        isClick = false;
         clearInterval(loop);
       }
     }, 100);
@@ -140,7 +152,7 @@ const waitUntilClick = () => {
 
 const waitUntilChoose = (options) => {
   return new Promise(async (resolve, reject) => {
-    // TODO
+    waitUntilClick();
     resolve();
   })
 }
@@ -175,7 +187,7 @@ const show = (text, img, smooth = true) => {
     } else {
       ctx.fillStyle = '#658EFF'
       ctx.roundRect(140, 410, canvas.width - 280, 90, 10).fill();
-
+       
       showTalker(talker);
 
       ctx.fillStyle = 'white'
@@ -204,6 +216,7 @@ image.addEventListener('load', () => {
   ctx.drawImage(image, 0, 0, 960, 540);
 }, false);
 
-canvas.addEventListener('click', () => {
+canvas.addEventListener('click', (event) => {
   isClick = true;
+  console.log(canvas.getMousePos(event))
 });
