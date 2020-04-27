@@ -3,7 +3,8 @@ const canvas = document.getElementById('game'),
   image = new Image(),
   httpRequest = new XMLHttpRequest();
 
-let assetsDir = '';
+let assetsDir = '',
+  mousePos = { x: 0, y: 0 };
 
 // ====================================================================================================
 
@@ -63,11 +64,13 @@ CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {
 }
 
 HTMLElement.prototype.getMousePos = function (event) {
-  var rect = this.getBoundingClientRect();
-  return {
-      x: (event.clientX - rect.left).toFixed(),
-      y: (event.clientY - rect.top).toFixed()
-  };
+  return new Promise(async (resolve, reject) => {
+    var rect = this.getBoundingClientRect();
+    resolve({
+        x: (event.clientX - rect.left).toFixed(),
+        y: (event.clientY - rect.top).toFixed()
+    });
+  });
 }
 
 const isInside = (pos, rect) => {
@@ -142,7 +145,7 @@ const waitUntilClick = () => {
   return new Promise(async (resolve, reject) => {
     let loop = setInterval(() => {
       if (isClick) {
-        resolve();
+        resolve(mousePos);
         isClick = false;
         clearInterval(loop);
       }
@@ -152,7 +155,7 @@ const waitUntilClick = () => {
 
 const waitUntilChoose = (options) => {
   return new Promise(async (resolve, reject) => {
-    waitUntilClick();
+    await waitUntilClick();
     resolve();
   })
 }
@@ -217,6 +220,6 @@ image.addEventListener('load', () => {
 }, false);
 
 canvas.addEventListener('click', (event) => {
+  mousePos = await canvas.getMousePos(event);
   isClick = true;
-  console.log(canvas.getMousePos(event))
 });
