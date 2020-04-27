@@ -181,7 +181,8 @@ const waitUntilChoose = (options) => {
         resolve(i);
       }
     }
-    waitUntilChoose(options);
+    
+    resolve(await waitUntilChoose(options));
   })
 }
 
