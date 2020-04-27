@@ -130,7 +130,7 @@ const playConv = (contents) => {
 const playQues = (content, answers) => {
   return new Promise(async (resolve, reject) => {
     await show(eval(`\`${content}\``), undefined);
-    await waitUntilChoose(answers.options);
+    console.log(await waitUntilChoose(answers.options));
     resolve();
   });
 };
@@ -155,7 +155,9 @@ const waitUntilClick = () => {
 
 const waitUntilChoose = (options) => {
   return new Promise(async (resolve, reject) => {
-    for(let i = 0; i < options.length; i++) {
+    let opRects = [];
+
+    for (let i = 0; i < options.length; i++) {
       const pos = (280 * (i * 2 + 1) / options.length / 2) + 60;
 
       ctx.fillStyle = '#658EFF'
@@ -163,11 +165,23 @@ const waitUntilChoose = (options) => {
       
       ctx.fillStyle = 'white'
       ctx.fillText(options[i], (canvas.width / 2) - (ctx.measureText(options[i]).width / 2), pos + 8);
+
+      opRects[i] = {
+        x: 180,
+        y: pos - 20,
+        width: 600,
+        height: 40
+      };
     }
 
     await waitUntilClick();
-    console.log(mousePos);
-    resolve();
+
+    for (let i = 0; i < options.length; i++) {
+      if (isInside(mousePos, opRects[i])) {
+        resolve(i);
+      }
+    }
+    waitUntilChoose(options);
   })
 }
 
