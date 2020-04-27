@@ -129,7 +129,7 @@ const playConv = (contents) => {
 
 const playQues = (content, answers) => {
   return new Promise(async (resolve, reject) => {
-    await show(eval(`\`${content[0]}\``), content[1]);
+    await show(eval(`\`${content}\``), undefined);
     await waitUntilChoose(answers.options);
     resolve();
   });
