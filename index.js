@@ -181,11 +181,12 @@ const waitUntilChoose = (options) => {
     for (let i = 0; i < options.length; i++) {
       if (isInside(mousePos, opRects[i])) {
         resolve(i);
+        return;
       }
     }
 
     resolve(await waitUntilChoose(options));
-  })
+  });
 }
 
 const show = (text, img, smooth = true) => {
