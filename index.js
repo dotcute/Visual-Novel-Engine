@@ -159,22 +159,22 @@ const waitUntilClick = () => {
   });
 };
 
-const waitUntilChoose = (options) => {
+const waitUntilChoose = (answers) => {
   return new Promise(async (resolve, reject) => {
     console.log('called');
 
-    let opRects = [];
+    let optionRects = [];
 
-    for (let i = 0; i < options.length; i++) {
-      const pos = (280 * (i * 2 + 1) / options.length / 2) + 60;
+    for (let i = 0; i < answers.length; i++) {
+      const pos = (280 * (i * 2 + 1) / answers.length / 2) + 60;
 
       ctx.fillStyle = '#658EFF'
       ctx.roundRect(180, pos - 20, 600, 40, 10).fill();
       
       ctx.fillStyle = 'white'
-      ctx.fillText(options[i], (canvas.width / 2) - (ctx.measureText(options[i]).width / 2), pos + 8);
+      ctx.fillText(answers[i], (canvas.width / 2) - (ctx.measureText(answers[i]).width / 2), pos + 8);
 
-      opRects[i] = {
+      optionRects[i] = {
         x: 180,
         y: pos - 20,
         width: 600,
@@ -184,14 +184,14 @@ const waitUntilChoose = (options) => {
 
     await waitUntilClick();
 
-    for (let i = 0; i < options.length; i++) {
-      if (isInside(mousePos, opRects[i])) {
+    for (let i = 0; i < answers.length; i++) {
+      if (isInside(mousePos, optionRects[i])) {
         resolve(i);
         return;
       }
     }
 
-    resolve(await waitUntilChoose(options));
+    resolve(await waitUntilChoose(answers));
   });
 }
 
