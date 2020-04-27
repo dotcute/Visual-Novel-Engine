@@ -136,9 +136,10 @@ const playQues = (content, options) => {
     await waitMillisecs(1000);
     const index = await waitUntilChoose(options.answers);
 
+    image.src = image.src;
+    
     if (options.scripts) eval(options.scripts[index]);
     if (options.replies) {
-      image.src = image.src;
       await show(options.replies[index]);
       await waitUntilClick();
     }
