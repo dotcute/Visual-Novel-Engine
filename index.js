@@ -145,7 +145,7 @@ const waitUntilClick = () => {
   return new Promise(async (resolve, reject) => {
     let loop = setInterval(() => {
       if (isClick) {
-        resolve(mousePos);
+        resolve();
         isClick = false;
         clearInterval(loop);
       }
@@ -155,7 +155,18 @@ const waitUntilClick = () => {
 
 const waitUntilChoose = (options) => {
   return new Promise(async (resolve, reject) => {
+    // 옵션 표시 범위: y60 - y340
+    // 옵션 세로 길이: 50px
+    // 마진 = (목록 y - 항목 개수 * 항목y)/(항목 개수+1);
+    // const margin = (280 - options.length * 50) / (options.length + 1);
+
+    for(let i = 0; i < options.length; i++) {
+      const pos = (280 * (i * 2 + 1) / options.length / 2) + 60;
+      ctx.roundRect(180, pos - 25, 600, 50, 10);
+    }
+
     await waitUntilClick();
+    console.log(mousePos);
     resolve();
   })
 }
