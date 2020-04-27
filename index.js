@@ -162,7 +162,7 @@ const waitUntilChoose = (options) => {
       ctx.roundRect(180, pos - 20, 600, 40, 10).fill();
       
       ctx.fillStyle = 'white'
-      ctx.fillText(options[i], (canvas.width / 2) - (ctx.measureText(options[i]).width / 2), pos + 3);
+      ctx.fillText(options[i], (canvas.width / 2) - (ctx.measureText(options[i]).width / 2), pos + 8);
     }
 
     await waitUntilClick();
