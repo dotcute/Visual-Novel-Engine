@@ -161,8 +161,6 @@ const waitUntilClick = () => {
 
 const waitUntilChoose = (answers) => {
   return new Promise(async (resolve, reject) => {
-    console.log('called');
-
     let optionRects = [];
 
     for (let i = 0; i < answers.length; i++) {
