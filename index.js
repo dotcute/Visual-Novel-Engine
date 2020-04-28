@@ -208,8 +208,10 @@ const show = (text, img, smooth = true) => {
     if (text.split(': ').length > 1) {
       const arr = text.split(': ');
       talker = arr.shift();
-      text = '"' + arr.join(': ') + '"';
-    } else {
+      if (talker) text = '"' + arr.join(': ') + '"';
+      else text = arr.join(': ');
+    }
+    else {
       talker = nickname;
       text = '(' + text + ')';
     }
